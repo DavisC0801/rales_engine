@@ -3,6 +3,8 @@ Bundler.require
 
 $LOAD_PATH.unshift(File.expand_path("app", __dir__))
 
-require 'controllers/rales_engine_app'
+if ActiveRecord::Migrator.needs_migration?
+  raise 'Migrations are pending. Run `rake db:migrate` to resolve the issue.'
+end
 
-run RalesEngineApp
+run RalesEngineController
