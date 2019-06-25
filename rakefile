@@ -6,59 +6,89 @@ task :console do
   Pry.start
 end
 
+namespace :db do
+  desc "Run the migrations"
+  task(:migration) do
+    require_all "./db/migrate"
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ActiveRecord::Migration.verbose = true
+    ActiveRecord::Base.connection.migration_context.migrate
+  end
+end
+
 namespace :import do
+  task :setup do
+    Rake::Task['db:drop'].invoke
+    Rake::Task['db:create'].invoke
+    Rake::Task['db:migrate'].invoke
+  end
+
+  desc "Imports all data into database"
   task :all do
+    Rake::Task['import:setup'].invoke
+    CSV.foreach('./app/data/merchants.csv', :headers => true) do |row|
+      Merchant.create!(row.to_hash)
+    end
     CSV.foreach('./app/data/customers.csv', :headers => true) do |row|
       Customer.create!(row.to_hash)
+    end
+    CSV.foreach('./app/data/items.csv', :headers => true) do |row|
+      Item.create!(row.to_hash)
     end
     CSV.foreach('./app/data/invoices.csv', :headers => true) do |row|
       Invoice.create!(row.to_hash)
     end
     CSV.foreach('./app/data/invoice_items.csv', :headers => true) do |row|
-      Invoice_item.create!(row.to_hash)
-    end
-    CSV.foreach('./app/data/items.csv', :headers => true) do |row|
-      Item.create!(row.to_hash)
-    end
-    CSV.foreach('./app/data/merchants.csv', :headers => true) do |row|
-      Merchants.create!(row.to_hash)
+      InvoiceItem.create!(row.to_hash)
     end
     CSV.foreach('./app/data/transactions.csv', :headers => true) do |row|
-      Transactions.create!(row.to_hash)
+      Transaction.create!(row.to_hash)
     end
   end
 
+  desc "Imports all customer data into database"
   task :customers do
+    Rake::Task['import:setup']
     CSV.foreach('./app/data/customers.csv', :headers => true) do |row|
       Customer.create!(row.to_hash)
     end
   end
 
+  desc "Imports all invoices data into database"
   task :invoices do
+    Rake::Task['import:setup']
     CSV.foreach('./app/data/invoices.csv', :headers => true) do |row|
       Invoice.create!(row.to_hash)
     end
   end
 
+  desc "Imports all invoice items data into database"
   task :invoice_items do
+    Rake::Task['import:setup']
     CSV.foreach('./app/data/invoice_items.csv', :headers => true) do |row|
-      Invoice_item.create!(row.to_hash)
+      InvoiceItem.create!(row.to_hash)
     end
   end
 
+  desc "Imports all item data into database"
   task :items do
+    Rake::Task['import:setup']
     CSV.foreach('./app/data/items.csv', :headers => true) do |row|
       Item.create!(row.to_hash)
     end
   end
 
+  desc "Imports all merchant data into database"
   task :merchants do
+    Rake::Task['import:setup']
     CSV.foreach('./app/data/merchants.csv', :headers => true) do |row|
       Merchant.create!(row.to_hash)
     end
   end
 
+  desc "Imports all transaction data into database"
   task :transactions do
+    Rake::Task['import:setup']
     CSV.foreach('./app/data/transactions.csv', :headers => true) do |row|
       Transaction.create!(row.to_hash)
     end
