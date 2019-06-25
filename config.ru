@@ -1,8 +1,10 @@
 require 'bundler'
 Bundler.require
+require_all'app'
 
-$LOAD_PATH.unshift(File.expand_path("app", __dir__))
+if ActiveRecord::Base.connection.migration_context.needs_migration?
+  raise "Migrations are pending, run `rake db:migrate` to resolve the issue"
+end
 
-require 'controllers/rales_engine_app'
-
-run RalesEngineApp
+run ApplicationController
+use ItemsController

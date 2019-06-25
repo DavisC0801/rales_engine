@@ -1,0 +1,14 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: rales_engine_development
+  host: localhost
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: rales_engine_test
+  pool: 20
+  host: localhost
+  password:
