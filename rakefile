@@ -48,7 +48,6 @@ namespace :import do
 
   desc "Imports all customer data into database"
   task :customers do
-    Rake::Task['import:setup']
     CSV.foreach('./app/data/customers.csv', :headers => true) do |row|
       Customer.create!(row.to_hash)
     end
@@ -56,7 +55,6 @@ namespace :import do
 
   desc "Imports all invoices data into database"
   task :invoices do
-    Rake::Task['import:setup']
     CSV.foreach('./app/data/invoices.csv', :headers => true) do |row|
       Invoice.create!(row.to_hash)
     end
@@ -64,7 +62,6 @@ namespace :import do
 
   desc "Imports all invoice items data into database"
   task :invoice_items do
-    Rake::Task['import:setup']
     CSV.foreach('./app/data/invoice_items.csv', :headers => true) do |row|
       InvoiceItem.create!(row.to_hash)
     end
@@ -72,7 +69,6 @@ namespace :import do
 
   desc "Imports all item data into database"
   task :items do
-    Rake::Task['import:setup']
     CSV.foreach('./app/data/items.csv', :headers => true) do |row|
       Item.create!(row.to_hash)
     end
@@ -80,7 +76,6 @@ namespace :import do
 
   desc "Imports all merchant data into database"
   task :merchants do
-    Rake::Task['import:setup']
     CSV.foreach('./app/data/merchants.csv', :headers => true) do |row|
       Merchant.create!(row.to_hash)
     end
@@ -88,7 +83,6 @@ namespace :import do
 
   desc "Imports all transaction data into database"
   task :transactions do
-    Rake::Task['import:setup']
     CSV.foreach('./app/data/transactions.csv', :headers => true) do |row|
       Transaction.create!(row.to_hash)
     end
