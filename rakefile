@@ -1,0 +1,68 @@
+require_relative './config/environment'
+require 'sinatra/activerecord/rake'
+require 'csv'
+
+task :console do
+  Pry.start
+end
+
+namespace :import do
+  task :all do
+    CSV.foreach('./app/data/customers.csv', :headers => true) do |row|
+      Customer.create!(row.to_hash)
+    end
+    CSV.foreach('./app/data/invoices.csv', :headers => true) do |row|
+      Invoice.create!(row.to_hash)
+    end
+    CSV.foreach('./app/data/invoice_items.csv', :headers => true) do |row|
+      Invoice_item.create!(row.to_hash)
+    end
+    CSV.foreach('./app/data/items.csv', :headers => true) do |row|
+      Item.create!(row.to_hash)
+    end
+    CSV.foreach('./app/data/merchants.csv', :headers => true) do |row|
+      Merchants.create!(row.to_hash)
+    end
+    CSV.foreach('./app/data/transactions.csv', :headers => true) do |row|
+      Transactions.create!(row.to_hash)
+    end
+  end
+
+  task :customers do
+    CSV.foreach('./app/data/customers.csv', :headers => true) do |row|
+      Customer.create!(row.to_hash)
+    end
+  end
+
+  task :invoices do
+    CSV.foreach('./app/data/invoices.csv', :headers => true) do |row|
+      Invoice.create!(row.to_hash)
+    end
+  end
+
+  task :invoice_items do
+    CSV.foreach('./app/data/invoice_items.csv', :headers => true) do |row|
+      Invoice_item.create!(row.to_hash)
+    end
+  end
+
+  task :items do
+    CSV.foreach('./app/data/items.csv', :headers => true) do |row|
+      Item.create!(row.to_hash)
+    end
+  end
+
+  task :merchants do
+    CSV.foreach('./app/data/merchants.csv', :headers => true) do |row|
+      Merchant.create!(row.to_hash)
+    end
+  end
+
+  task :transactions do
+    CSV.foreach('./app/data/transactions.csv', :headers => true) do |row|
+      Transaction.create!(row.to_hash)
+    end
+  end
+end
+
+task default: ["import:all"]
