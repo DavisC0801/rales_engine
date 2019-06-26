@@ -8,3 +8,5 @@ end
 
 run ApplicationController
 use MerchantsRecordsController
+use CustomersRecordsController
+use ItemsRecordsController
