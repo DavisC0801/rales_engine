@@ -1,10 +1,7 @@
 class MerchantsBusinessLogicController < ApplicationController
   # Single Merchant
   get "/api/v1/merchants/:id/revenue" do
-    # returns the total revenue for that merchant across successful transactions
-  end
-  get "/api/v1/merchants/:id/revenue?date=x" do
-    # returns the total revenue for that merchant for a specific invoice date x
+    RevenueSerializer.new(Merchant.revenue(params)).to_json
   end
   get "/api/v1/merchants/:id/favorite_customer" do
     # returns the customer who has conducted the most total number of successful transactions.
