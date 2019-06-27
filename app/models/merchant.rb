@@ -15,4 +15,14 @@ class Merchant < ApplicationRecord
       query.first
     end
   end
+
+  def self.favorite_customer(params)
+    joins(invoices: [:customer, :transactions])
+    .where(id: params[:id])
+    .merge(Transaction.successful)
+    .select("customers.*, COUNT(transactions.id) AS completed_transactions")
+    .group("customers.id")
+    .order("completed_transactions DESC")
+    .first
+  end
 end
