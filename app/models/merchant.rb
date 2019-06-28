@@ -46,4 +46,13 @@ class Merchant < ApplicationRecord
     .order("sum DESC")
     .limit(params[:quantity])
   end
+
+  def self.most_items(params)
+    joins(invoices: [:invoice_items, :transactions])
+    .merge(Transaction.successful)
+    .select("merchants.*, SUM(invoice_items.quantity)")
+    .group(:id)
+    .order("sum DESC")
+    .limit(params[:quantity])
+  end
 end
