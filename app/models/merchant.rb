@@ -55,4 +55,21 @@ class Merchant < ApplicationRecord
     .order("sum DESC")
     .limit(params[:quantity])
   end
+
+  def self.most_revenue(params)
+    joins(invoices: [:invoice_items, :transactions])
+    .merge(Transaction.successful)
+    .select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price)")
+    .group(:id)
+    .order("sum DESC")
+    .limit(params[:quantity])
+  end
+
+  def self.total_revenue(params)
+    revenue = self.joins(invoices: [:invoice_items, :transactions])
+    .where(invoices: {created_at: (params[:date].to_date..params[:date].to_date + 1.day)})
+    .merge(Transaction.successful)
+    .select("SUM(invoice_items.quantity * invoice_items.unit_price)")
+    .take
+  end
 end
