@@ -16,7 +16,7 @@ class MerchantsBusinessLogicController < ApplicationController
   end
 
   get "/api/v1/merchants/most_items" do
-    #returns the top x merchants ranked by total number of items sold
+    MerchantSerializer.new(Merchant.most_items(params)).to_json
   end
 
   get "/api/v1/merchants/revenue" do
