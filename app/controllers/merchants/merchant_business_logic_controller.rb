@@ -7,7 +7,7 @@ class MerchantsBusinessLogicController < ApplicationController
     CustomerSerializer.new(Merchant.favorite_customer(params)).to_json
   end
   get "/api/v1/merchants/:id/customers_with_pending_invoices" do
-    # returns a collection of customers which have pending (unpaid) invoices. A pending invoice has no transactions with a result of success. This means all transactions are failed. Postgres has an EXCEPT operator that might be useful. ActiveRecord also has a find_by_sql that might help.
+    CustomerSerializer.new(Merchant.customers_with_pending_invoices(params)).to_json
   end
 
   # All Merchants
