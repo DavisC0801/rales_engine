@@ -78,4 +78,10 @@ class Merchant < ApplicationRecord
     .where(id: params[:id])
     .select("items.*")
   end
+
+  def self.all_invoices(params)
+    joins(:invoices)
+    .where(id: params[:id])
+    .select("invoices.*")
+  end
 end
