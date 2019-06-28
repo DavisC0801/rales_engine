@@ -37,4 +37,13 @@ class Merchant < ApplicationRecord
       EXCEPT (SELECT invoices.id FROM invoices INNER JOIN transactions
       ON transactions.invoice_id = invoices.id WHERE transactions.result = 'success'))")
   end
+
+  def self.most_revenue(params)
+    joins(invoices: [:invoice_items, :transactions])
+    .merge(Transaction.successful)
+    .select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price)")
+    .group(:id)
+    .order("sum DESC")
+    .limit(params[:quantity])
+  end
 end
