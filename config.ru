@@ -10,5 +10,6 @@ run ApplicationController
 use MerchantsBusinessLogicController
 use MerchantsRelationshipsController
 use MerchantsRecordsController
+use CustomersRelationshipsController
 use CustomersRecordsController
 use ItemsRecordsController
