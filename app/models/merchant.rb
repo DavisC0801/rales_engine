@@ -25,4 +25,16 @@ class Merchant < ApplicationRecord
     .order("completed_transactions DESC")
     .first
   end
+
+  def self.customers_with_pending_invoices(params)
+    find_by_sql("SELECT DISTINCT customers.* FROM merchants INNER JOIN invoices ON
+      invoices.merchant_id = merchants.id INNER JOIN customers ON
+      customers.id = invoices.customer_id LEFT OUTER JOIN transactions ON
+      transactions.invoice_id = invoices.id WHERE merchants.id = #{params[:id]}
+      AND invoices.id IN (SELECT invoices.id FROM invoices
+      LEFT OUTER JOIN transactions ON transactions.invoice_id = invoices.id
+      WHERE (transactions.result = 'failed' OR transactions.result is NULL)
+      EXCEPT (SELECT invoices.id FROM invoices INNER JOIN transactions
+      ON transactions.invoice_id = invoices.id WHERE transactions.result = 'success'))")
+  end
 end
