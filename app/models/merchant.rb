@@ -72,4 +72,10 @@ class Merchant < ApplicationRecord
     .select("SUM(invoice_items.quantity * invoice_items.unit_price)")
     .take
   end
+
+  def self.all_items(params)
+    joins(:items)
+    .where(id: params[:id])
+    .select("items.*")
+  end
 end
