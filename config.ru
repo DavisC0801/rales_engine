@@ -10,6 +10,7 @@ run ApplicationController
 use MerchantsBusinessLogicController
 use MerchantsRelationshipsController
 use MerchantsRecordsController
+use CustomersBusinessLogicController
 use CustomersRelationshipsController
 use CustomersRecordsController
 use ItemsRecordsController
