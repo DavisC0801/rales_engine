@@ -20,4 +20,5 @@ use InvoicesRelationshipsController
 use InvoicesRecordsController
 use InvoiceItemsRelationshipsController
 use InvoiceItemsRecordsController
+use TransactionsRelationshipsController
 use TransactionsRecordsController
