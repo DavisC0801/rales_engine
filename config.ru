@@ -13,4 +13,5 @@ use MerchantsRecordsController
 use CustomersBusinessLogicController
 use CustomersRelationshipsController
 use CustomersRecordsController
+use ItemsBusinessLogicController
 use ItemsRecordsController
