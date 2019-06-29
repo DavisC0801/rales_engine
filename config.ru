@@ -14,6 +14,7 @@ use CustomersBusinessLogicController
 use CustomersRelationshipsController
 use CustomersRecordsController
 use ItemsBusinessLogicController
+use ItemsRelationshipsController
 use ItemsRecordsController
 use InvoicesRelationshipsController
 use InvoicesRecordsController
