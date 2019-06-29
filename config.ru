@@ -18,3 +18,4 @@ use ItemsRecordsController
 use InvoicesRelationshipsController
 use InvoicesRecordsController
 use InvoiceItemsRecordsController
+use TransactionsRecordsController
