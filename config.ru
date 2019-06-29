@@ -17,5 +17,6 @@ use ItemsBusinessLogicController
 use ItemsRecordsController
 use InvoicesRelationshipsController
 use InvoicesRecordsController
+use InvoiceItemsRelationshipsController
 use InvoiceItemsRecordsController
 use TransactionsRecordsController
