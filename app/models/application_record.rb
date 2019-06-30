@@ -4,4 +4,8 @@ class ApplicationRecord < ActiveRecord::Base
   def self.find_all(params)
     where("#{params.keys.first} = ?", params.values.first)
   end
+
+  def self.random
+    order("RANDOM()").take
+  end
 end
