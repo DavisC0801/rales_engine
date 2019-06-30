@@ -17,6 +17,10 @@ class InvoicesRecordsController < ApplicationController
     end
   end
 
+  get "/api/v1/invoices/random" do
+    InvoiceSerializer.new(Invoice.random).to_json
+  end
+
   get "/api/v1/invoices/:id" do
     InvoiceSerializer.new(Invoice.find(params[:id])).to_json
   end

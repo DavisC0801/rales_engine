@@ -17,6 +17,10 @@ class ItemsRecordsController < ApplicationController
     end
   end
 
+  get "/api/v1/items/random" do
+    ItemSerializer.new(Item.random).to_json
+  end
+
   get "/api/v1/items/:id" do
     ItemSerializer.new(Item.find(params[:id])).to_json
   end

@@ -17,6 +17,10 @@ class TransactionsRecordsController < ApplicationController
     end
   end
 
+  get "/api/v1/transactions/random" do
+    TransactionSerializer.new(Transaction.random).to_json
+  end
+
   get "/api/v1/transactions/:id" do
     TransactionSerializer.new(Transaction.find(params[:id])).to_json
   end
