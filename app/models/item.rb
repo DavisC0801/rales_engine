@@ -21,30 +21,30 @@ class Item < ApplicationRecord
   def self.most_revenue(params)
     joins(invoices: [:transactions, :invoice_items])
     .select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price)")
+    .merge(Transaction.successful)
     .group(:id)
     .unscope(:order)
     .order("sum DESC")
-    .merge(Transaction.successful)
     .limit(params[:quantity])
   end
 
   def self.most_items(params)
     joins(invoices: :transactions)
     .select("items.*, SUM(invoice_items.quantity)")
+    .merge(Transaction.successful)
+    .group(:id)
     .unscope(:order)
     .order("sum DESC")
-    .group(:id)
-    .merge(Transaction.successful)
     .limit(params[:quantity])
   end
 
   def self.best_day(params)
     joins(invoices: :transactions)
-    .unscope(:order)
     .merge(Transaction.successful)
     .select("invoices.created_at AS best_day, SUM(invoice_items.quantity)")
     .where(id: params[:id])
     .group("invoices.created_at")
+    .unscope(:order)
     .order("sum DESC, invoices.created_at DESC")
     .take
   end

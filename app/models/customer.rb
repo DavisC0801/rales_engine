@@ -8,20 +8,20 @@ class Customer < ApplicationRecord
     .where(id: params[:id])
     .select("merchants.*, COUNT(transactions.id)")
     .group("merchants.id")
+    .unscope(:order)
     .order("count DESC")
-    .first
+    .take
   end
 
-  def self.find_invoices(params)
+  def self.all_invoices(params)
     joins(:invoices)
     .where(id: params[:id])
     .select("invoices.*")
   end
 
-  def self.find_transactions(params)
+  def self.all_transactions(params)
     joins(invoices: :transactions)
     .where(id: params[:id])
-    .select("merchants.*, COUNT(transactions.id)")
-    .group("merchants.id")
+    .select("transactions.*")
   end
 end
