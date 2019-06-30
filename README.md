@@ -13,10 +13,10 @@ An API for sales data using Sinatra.
 * Create the local database using rake:
 > rake db:create
 
-* Run the import task if using default data. This will use CSV files stored in the data directory:
+* Rake tasks are written to import CSV data from the data directory. For convinience, the following task will import all data and reset the database tables:
 > rake import:all
 
-  This will also reset the tables and re-run migrations. Individual rake tasks to import files exist under rake's import namespace.
+  Rake tasks to import individual resources are avalible under rake's import namespace.
 
 * To remove Sinatra's built-in warning about ActiveSupport set this enviornment variable in your terminal:
 > export SINATRA_ACTIVESUPPORT_WARNING=false
@@ -35,7 +35,6 @@ An API for sales data using Sinatra.
 ## Endpoints
 
 The following resources are exposed on this API:
-Off the Rails - Using Sinatra to create an API
 
 * Merchants
 * Items
@@ -93,7 +92,7 @@ These resources also have finders for both singular and all matching records. Th
 
   Returns the associated merchant.
 
-Invoice Items
+* Invoice Items
 
 > /api/v1/invoice_items/:id/invoice 
 
@@ -102,7 +101,7 @@ Invoice Items
 
   Returns the associated item.
 
-Items
+* Items
 
 > /api/v1/items/:id/invoice_items 
 
@@ -111,13 +110,13 @@ Items
 
   Returns the associated merchant.
 
-Transactions
+* Transactions
 
 > /api/v1/transactions/:id/invoice 
 
   Returns the associated invoice.
 
-Customers
+* Customers
 
 > /api/v1/customers/:id/invoices 
 
