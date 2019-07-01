@@ -66,62 +66,62 @@ These resources also have finders for both singular and all matching records. Th
 ### These resources have the following relationship endpoints that are exposed:
 
 * Merchants
-> /api/v1/merchants/:id/items 
+> /api/v1/merchants/:id/items
 
   Returns a collection of items associated with that merchant.
-  
-> /api/v1/merchants/:id/invoices 
+
+> /api/v1/merchants/:id/invoices
 
   Returns a collection of invoices associated with that merchant from their known orders.
 
 * Invoices
 
-> /api/v1/invoices/:id/transactions 
+> /api/v1/invoices/:id/transactions
 
   Returns a collection of associated transactions.
-> /api/v1/invoices/:id/invoice_items 
+> /api/v1/invoices/:id/invoice_items
 
   Returns a collection of associated invoice items.
-> /api/v1/invoices/:id/items 
+> /api/v1/invoices/:id/items
 
   Returns a collection of associated items.
-> /api/v1/invoices/:id/customer 
+> /api/v1/invoices/:id/customer
 
   Returns the associated customer.
-> /api/v1/invoices/:id/merchant 
+> /api/v1/invoices/:id/merchant
 
   Returns the associated merchant.
 
 * Invoice Items
 
-> /api/v1/invoice_items/:id/invoice 
+> /api/v1/invoice_items/:id/invoice
 
   Returns the associated invoice.
-> /api/v1/invoice_items/:id/item 
+> /api/v1/invoice_items/:id/item
 
   Returns the associated item.
 
 * Items
 
-> /api/v1/items/:id/invoice_items 
+> /api/v1/items/:id/invoice_items
 
   Returns a collection of associated invoice items.
-> /api/v1/items/:id/merchant 
+> /api/v1/items/:id/merchant
 
   Returns the associated merchant.
 
 * Transactions
 
-> /api/v1/transactions/:id/invoice 
+> /api/v1/transactions/:id/invoice
 
   Returns the associated invoice.
 
 * Customers
 
-> /api/v1/customers/:id/invoices 
+> /api/v1/customers/:id/invoices
 
   Returns a collection of associated invoices.
-> /api/v1/customers/:id/transactions 
+> /api/v1/customers/:id/transactions
 
   Returns a collection of associated transactions.
 
@@ -129,42 +129,42 @@ These resources also have finders for both singular and all matching records. Th
 
 * Merchants
 
-> /api/v1/merchants/most_revenue?quantity=x 
+> /api/v1/merchants/most_revenue?quantity=x
 
   Returns the top x merchants ranked by total revenue.
-> /api/v1/merchants/most_items?quantity=x 
+> /api/v1/merchants/most_items?quantity=x
 
   Returns the top x merchants ranked by total number of items sold.
-> /api/v1/merchants/revenue?date=x 
+> /api/v1/merchants/revenue?date=x
 
   Returns the total revenue for date x across all merchants.
-> /api/v1/merchants/:id/revenue 
+> /api/v1/merchants/:id/revenue
 
   Returns the total revenue for that merchant across successful transactions.
-> /api/v1/merchants/:id/revenue?date=x 
+> /api/v1/merchants/:id/revenue?date=x
 
   Returns the total revenue for that merchant for a specific invoice date x.
-> /api/v1/merchants/:id/favorite_customer 
+> /api/v1/merchants/:id/favorite_customer
 
-  Returns the customer who has conducted the most total number of successful transactions..
-> /api/v1/merchants/:id/customers_with_pending_invoices 
+  Returns the customer who has conducted the most total number of successful transactions.
+> /api/v1/merchants/:id/customers_with_pending_invoices
 
-  Returns a collection of customers which have pending (unpaid) invoices. A pending invoice has no transactions with a result of success. This means all transactions are failed. Postgres has an EXCEPT operator that might be useful. ActiveRecord also has a find_by_sql that might help..
+  Returns a collection of customers which have pending (unpaid) invoices.
 
 * Items
 
-> /api/v1/items/most_revenue?quantity=x 
+> /api/v1/items/most_revenue?quantity=x
 
   Returns the top x items ranked by total revenue generated.
-> /api/v1/items/most_items?quantity=x 
+> /api/v1/items/most_items?quantity=x
 
   Returns the top x item instances ranked by total number sold.
-> /api/v1/items/:id/best_day 
+> /api/v1/items/:id/best_day
 
   Returns the date with the most sales for the given item using the invoice date. If there are multiple days with equal number of sales, return the most recent day..
 
 * Customers
 
-> /api/v1/customers/:id/favorite_merchant 
+> /api/v1/customers/:id/favorite_merchant
 
   Returns a merchant where the customer has conducted the most successful transactions.
