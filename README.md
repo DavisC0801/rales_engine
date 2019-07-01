@@ -18,12 +18,12 @@ An API for sales data using Sinatra.
 
   Rake tasks to import individual resources are avalible under rake's import namespace.
 
-* To remove Sinatra's built-in warning about ActiveSupport set this enviornment variable in your terminal:
+* To remove Sinatra's built-in warning about ActiveSupport set this environment variable in your terminal:
 > export SINATRA_ACTIVESUPPORT_WARNING=false
 
   This is an optional step.
 
-* **Sinatra has a known bug when using MacOS reguarding fork safety. To run this project on MacOS, set this enviornment variable.**
+* **Sinatra has a known bug when using MacOS reguarding fork safety. To run this project on MacOS, set this environment variable.**
 > export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 * This project includes the shotgun gem as an alternitive to spring. To use this, start the server with the following command:
