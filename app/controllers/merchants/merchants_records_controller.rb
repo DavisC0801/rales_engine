@@ -5,7 +5,7 @@ class MerchantsRecordsController < ApplicationController
     if !acceptable_queries.include?(params.keys.first)
       return MerchantSerializer.new(Merchant.all).to_json
     else
-      return MerchantSerializer.new(Merchant.where("#{params.keys.first} = ?", params.values.first)).to_json
+      return MerchantSerializer.new(Merchant.find_all(params)).to_json
     end
   end
 
