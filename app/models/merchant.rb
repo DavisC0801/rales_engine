@@ -8,6 +8,7 @@ class Merchant < ApplicationRecord
     .where(id: params[:id])
     .merge(Transaction.successful)
     .select("SUM(invoice_items.quantity * invoice_items.unit_price)")
+    .unscope(:order)
     .group(:id)
     if !params[:date].nil?
       query.where(invoices: {created_at: (params[:date].to_date..params[:date].to_date + 1.day)}).first
@@ -22,6 +23,7 @@ class Merchant < ApplicationRecord
     .merge(Transaction.successful)
     .select("customers.*, COUNT(transactions.id) AS completed_transactions")
     .group("customers.id")
+    .unscope(:order)
     .order("completed_transactions DESC")
     .first
   end
@@ -43,6 +45,7 @@ class Merchant < ApplicationRecord
     .merge(Transaction.successful)
     .select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price)")
     .group(:id)
+    .unscope(:order)
     .order("sum DESC")
     .limit(params[:quantity])
   end
@@ -52,6 +55,7 @@ class Merchant < ApplicationRecord
     .merge(Transaction.successful)
     .select("merchants.*, SUM(invoice_items.quantity)")
     .group(:id)
+    .unscope(:order)
     .order("sum DESC")
     .limit(params[:quantity])
   end
@@ -61,15 +65,29 @@ class Merchant < ApplicationRecord
     .merge(Transaction.successful)
     .select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price)")
     .group(:id)
+    .unscope(:order)
     .order("sum DESC")
     .limit(params[:quantity])
   end
 
   def self.total_revenue(params)
     revenue = self.joins(invoices: [:invoice_items, :transactions])
+    .select("SUM(invoice_items.quantity * invoice_items.unit_price)")
     .where(invoices: {created_at: (params[:date].to_date..params[:date].to_date + 1.day)})
     .merge(Transaction.successful)
-    .select("SUM(invoice_items.quantity * invoice_items.unit_price)")
+    .unscope(:order)
     .take
+  end
+
+  def self.all_items(params)
+    joins(:items)
+    .where(id: params[:id])
+    .select("items.*")
+  end
+
+  def self.all_invoices(params)
+    joins(:invoices)
+    .where(id: params[:id])
+    .select("invoices.*")
   end
 end

@@ -8,6 +8,17 @@ end
 
 run ApplicationController
 use MerchantsBusinessLogicController
+use MerchantsRelationshipsController
 use MerchantsRecordsController
+use CustomersBusinessLogicController
+use CustomersRelationshipsController
 use CustomersRecordsController
+use ItemsBusinessLogicController
+use ItemsRelationshipsController
 use ItemsRecordsController
+use InvoicesRelationshipsController
+use InvoicesRecordsController
+use InvoiceItemsRelationshipsController
+use InvoiceItemsRecordsController
+use TransactionsRelationshipsController
+use TransactionsRecordsController

@@ -17,6 +17,10 @@ class MerchantsRecordsController < ApplicationController
     end
   end
 
+  get "/api/v1/merchant/random" do
+    NerchantSerializer.new(Merchant.random).to_json
+  end
+
   get "/api/v1/merchants/:id" do
     MerchantSerializer.new(Merchant.find(params[:id])).to_json
   end
